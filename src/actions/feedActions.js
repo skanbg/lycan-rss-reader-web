@@ -12,16 +12,16 @@ import AlreadyExistsError from '../errors/AlreadyExistsError';
 var FeedActions = {
 	addFeedByFeedUrl: function(feedUrl) {
 		return co(function*() {
-			var isADuplicateFeed = !FeedStore.getFeedByUrl(feedUrl);
-
-			if(isADuplicateFeed){
-				throw new AlreadyExistsError('Trying to add duplicate feed');
-			}
-
 			var newFeed = yield FeedApi.loadFeedByUrl(feedUrl);
 
 			if (!newFeed) {
 				throw new AvailabilityError('Feed not found');
+			}
+
+			var isADuplicateFeed = !!FeedStore.isExisting(newFeed);
+
+			if(isADuplicateFeed){
+				throw new AlreadyExistsError('Trying to add duplicate feed');
 			}
 
 			Dispatcher.dispatch({

@@ -27,8 +27,13 @@ var FeedStore = Object.assign({}, EventEmitter.prototype, {
 		return _feeds;
 	},
 	getFeedByUrl: function(url) {
-		return _.find(_feeds, function (feed) {
+		return _.find(_feeds, function(feed) {
 			return feed.link[0].href == url;
+		});
+	},
+	isExisting: function(searchedFeed) {
+		return _.find(_feeds, function(feed) {
+			return feed.link[0].href == searchedFeed.link[0].href;
 		});
 	}
 });
@@ -36,11 +41,8 @@ var FeedStore = Object.assign({}, EventEmitter.prototype, {
 Dispatcher.register(function(action) {
 	switch (action.actionType) {
 		case ActionTypes.ADD_FEED:
-			var isANewFeed = !FeedStore.getFeedByUrl(action.feed.link[0].href);
-			if (isANewFeed) {
-				_feeds.push(action.feed);
-				FeedStore.emitChange();
-			}
+			_feeds.push(action.feed);
+			FeedStore.emitChange();
 	}
 });
 

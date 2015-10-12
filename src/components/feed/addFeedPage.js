@@ -44,7 +44,6 @@ class AddFeedPage extends Component {
 				self.setState({addNewSubscriptionStatus: null});	
 			})
 			.catch(function (err) {
-				console.log('Err res: ', err);
 				self.setState({addNewSubscriptionError: err});
 				self.setState({addNewSubscriptionStatus: null});
 			});

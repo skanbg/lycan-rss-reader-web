@@ -19,10 +19,20 @@
         }
     }
 
-    .suggestion-panel{
-        .suggestion-option{
-            &:hover{
+    .suggestion-panel {
+        .suggestion-option {
+            &:hover {
                 background-color: $lycan-gray-lighter;
+            }
+
+            span {
+                &.title {
+                    font-weight: 600;
+                }
+
+                & .description {
+                    font-style: italic;
+                }
             }
         }
     }

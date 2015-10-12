@@ -14,4 +14,14 @@
             max-height: 100px;
         }
     }
+
+    span {
+        &.title {
+            font-weight: 600;
+        }
+
+        & .description {
+            font-style: italic;
+        }
+    }
 }

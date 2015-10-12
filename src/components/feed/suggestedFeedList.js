@@ -33,7 +33,7 @@ class FeedList extends Component {
 				<ListGroup fill>
 					{this.props.suggestedFeeds.map(function (feed) {
 						return (
-							<ListGroupItem onClick={self.addNewSubscription.bind(self, feed)} key={feed.url} className="suggestion-option">{feed.title}</ListGroupItem>
+							<ListGroupItem onClick={self.addNewSubscription.bind(self, feed)} key={feed.url} className="suggestion-option"><span className="title">{feed.title}</span> - <span className="description">{feed.description}</span></ListGroupItem>
 						);
 					})}
 				</ListGroup>);
