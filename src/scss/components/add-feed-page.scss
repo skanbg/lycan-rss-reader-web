@@ -1,0 +1,29 @@
+@import "../colors";
+
+.add-feed-page-container {
+    .heading-container {
+        input {
+            border-radius: 5px !important;
+        }
+
+        button {
+            margin-left: 10px !important;
+            padding-left: 30px !important;
+            padding-right: 30px !important;
+            border-radius: 5px !important;
+        }
+
+        .feed-parsing-progress:not(.progress-bar) {
+            margin-bottom: -20px;
+            margin-top: 20px;
+        }
+    }
+
+    .suggestion-panel{
+        .suggestion-option{
+            &:hover{
+                background-color: $lycan-gray-lighter;
+            }
+        }
+    }
+}

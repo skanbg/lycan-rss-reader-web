@@ -1,3 +1,13 @@
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
-@import "./partials/_menu";
 @import "./fonts";
+
+//Partials
+@import "./partials/_menu";
+
+//Components
+@import "./components/home-page";
+@import "./components/add-feed-page";
+
+body, html {
+    font-family: 'Josefin Sans', sans-serif;
+}

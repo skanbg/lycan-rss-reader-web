@@ -1,6 +1,6 @@
 ﻿/* global require:false, open:true, console:false */
 'use strict';
-
+require("babel-core/polyfill");
 var gulp = require('gulp');
 var connect = require('gulp-connect');
 var open = require('gulp-open');
@@ -19,7 +19,10 @@ var config = {
 		html: './src/*.html',
 		js: './src/**/*.js',
 		dist: './dist',
+		bootstrap: './node_modules/bootstrap-sass',
 		scss: './src/scss/**/*.scss',
+		resources: './src/resources/**/*',
+		favicon: './src/resources/favicon/**/*',
 		mainInJs: './src/main.js',
 		mainOutJs: 'bundle.js',
 		mainInScss: './src/scss/main.scss'
@@ -47,6 +50,7 @@ gulp.task('watch', function() {
 	gulp.watch(config.paths.html, ['html']);
 	gulp.watch(config.paths.js, ['js', 'lint']); 
 	gulp.watch(config.paths.scss, ['scss']);
+	gulp.watch(config.paths.resources, ['resources']);
 });
 
 gulp.task('clean', function() {
@@ -70,6 +74,22 @@ gulp.task('scss', function() {
 		.on('error', console.error.bind(console));
 });
 
+gulp.task('bootstrap', function() {
+	gulp.src(config.paths.bootstrap + '/assets/fonts/bootstrap/**/*')
+		.pipe(gulp.dest(config.paths.dist + '/fonts/bootstrap'));
+});
+
+gulp.task('resources', function() {
+	gulp.src(config.paths.resources)
+		.pipe(gulp.dest(config.paths.dist + '/public'))
+		.pipe(connect.reload())
+		.on('error', console.error.bind(console));
+
+	return gulp.src([config.paths.favicon])
+		.pipe(gulp.dest(config.paths.dist))
+		.on('error', console.error.bind(console));
+});
+
 gulp.task('lint', function() {
 	return gulp.src(config.paths.js)
 		.pipe(eslint({
@@ -80,7 +100,10 @@ gulp.task('lint', function() {
 
 gulp.task('js', function() {
 	return browserify(config.paths.mainInJs)
-		.transform(babelify)
+		// .transform(regenerator)
+		.transform(babelify.configure({
+			blacklist: ["regenerator"]
+		}))
 		.transform(reactify)
 		.bundle()
 		.pipe(source(config.paths.mainOutJs))
@@ -89,4 +112,4 @@ gulp.task('js', function() {
 		.on('error', console.error.bind(console));
 });
 
-gulp.task('default', ['html', 'js', 'scss', 'lint', 'open', 'watch']);
+gulp.task('default', ['html', 'js', 'scss', 'resources', 'bootstrap', 'lint', 'open', 'watch']);
