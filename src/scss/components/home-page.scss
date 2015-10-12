@@ -1,3 +1,5 @@
+@import "../colors";
+
 .home-page-container {
     .heading-container {
         .page-heading-outer {
@@ -12,6 +14,14 @@
 
         img.logo {
             max-height: 100px;
+        }
+    }
+
+    .suggestion-panel {
+        .suggestion-option {
+            &:hover {
+                background-color: $lycan-gray-lighter;
+            }
         }
     }
 

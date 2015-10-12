@@ -7,7 +7,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router } from 'react-router';
 
+//Routes
 import routes from './routes';
+//Actions
 import InitializeActions from './actions/initializeActions';
 
 InitializeActions.initApp();

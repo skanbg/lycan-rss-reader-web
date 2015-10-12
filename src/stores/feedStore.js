@@ -43,6 +43,11 @@ Dispatcher.register(function(action) {
 		case ActionTypes.ADD_FEED:
 			_feeds.push(action.feed);
 			FeedStore.emitChange();
+			break;
+		case ActionTypes.INITIALIZE:
+			_feeds = action.initialData.feeds;
+			FeedStore.emitChange();
+			break;
 	}
 });
 

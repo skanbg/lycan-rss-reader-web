@@ -27,7 +27,7 @@ class FeedList extends Component {
 				<ListGroup fill>
 					{this.props.feeds.map(function (feed) {
 						return (
-							<ListGroupItem key={feed.link[0].href}><span className="title">{feed.title}</span> - <span className="description">{feed.description}</span></ListGroupItem>
+							<ListGroupItem key={feed.link[0].href} className="suggestion-option"><span className="title">{feed.title}</span> - <span className="description">{feed.description}</span></ListGroupItem>
 						);
 					})}
 				</ListGroup>);
@@ -41,7 +41,7 @@ class FeedList extends Component {
 
 		return (
 		      <div>
-			    <Panel header={title}>
+			    <Panel header={title} className="suggestion-panel">
 			      {feeds}
 			    </Panel>
 			  </div>

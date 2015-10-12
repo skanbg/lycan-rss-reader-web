@@ -4,7 +4,6 @@
 import keyMirror from 'react/node_modules/fbjs/lib/keyMirror';
 
 module.exports = keyMirror({
-	ADD_FEED: null,
-	INITIALIZE: null,
-	STORE_FEED_LIST: null
+	FEED_SUBSCRIPTION: null,
+	FEED_LIST: null
 });

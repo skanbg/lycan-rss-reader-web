@@ -18,10 +18,18 @@ import FeedList from './feedList';
 class HomePage extends Component {
 	constructor(props) {
 	  super(props);
-	  this.state = {feeds: []};
 	}
 
 	componentWillMount () {
+		FeedStore.addChangeListener(this._onChange.bind(this));
+		this.setState({feeds: FeedStore.getAllFeeds()});
+	}
+
+	componentWillUnmount(){
+		FeedStore.removeChangeListener(this._onChange.bind(this));
+	}
+
+	_onChange(){
 		this.setState({feeds: FeedStore.getAllFeeds()});
 	}
 

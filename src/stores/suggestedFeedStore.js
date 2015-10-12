@@ -31,6 +31,7 @@ Dispatcher.register(function(action) {
 		case ActionTypes.INITIALIZE:
 			_suggestedFeeds = action.initialData.suggestedFeeds;
 			SuggestedFeedStore.emitChange();
+			break;
 	}
 });
 
