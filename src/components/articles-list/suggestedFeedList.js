@@ -7,7 +7,7 @@ import {
 }
 from 'react';
 import {
-	Router, Route, Link, History
+	Router, Route, Link
 }
 from 'react-router';
 import { findDOMNode } from 'react-dom';
@@ -15,35 +15,40 @@ import { findDOMNode } from 'react-dom';
 import { ListGroup, Panel, ListGroupItem } from 'react-bootstrap';
 
 class FeedList extends Component {
-	constructor(props, context) {
-	  super(props, context);  
+	constructor(props) {
+	  super(props);
+	}
+
+	addNewSubscription(feed) {
+		var rssUrl = feed.url;
+		this.props.addNewSubscription(rssUrl);
 	}
 
 	render() {
 		var self = this;
-		var feeds;
+		var suggestedFeeds;
 
-		if(this.props.feeds){
-			feeds = (
+		if(this.props.suggestedFeeds){
+			suggestedFeeds = (
 				<ListGroup fill>
-					{this.props.feeds.map(function (feed) {
+					{this.props.suggestedFeeds.map(function (feed) {
 						return (
-							<ListGroupItem onClick={self.props.viewFeed.bind(self, feed)} key={feed.link[0].href || feed.link[0]} className="suggestion-option"><span className="title">{feed.title}</span> - <span className="description">{feed.description}</span></ListGroupItem>
+							<ListGroupItem onClick={self.addNewSubscription.bind(self, feed)} key={feed.url} className="suggestion-option"><span className="title">{feed.title}</span> - <span className="description">{feed.description}</span></ListGroupItem>
 						);
 					})}
 				</ListGroup>);
 		} else {
-			feeds = null;
+			suggestedFeeds = null;
 		}
 
 		const title = (
-		  <h3>Your feeds</h3>
+		  <h3>Suggested feeds</h3>
 		);
 
 		return (
 		      <div>
 			    <Panel header={title} className="suggestion-panel">
-			      {feeds}
+			      {suggestedFeeds}
 			    </Panel>
 			  </div>
 			);

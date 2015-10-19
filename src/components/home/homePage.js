@@ -33,6 +33,12 @@ class HomePage extends Component {
 		this.setState({feeds: FeedStore.getAllFeeds()});
 	}
 
+	viewFeed(feed){
+		let feedLink = feed.link[0].href || feed.link[0];
+		let encodedId = encodeURIComponent(feedLink);
+		this.props.history.pushState(null, `/feed/${encodedId}`);
+	}
+
 	render() {
 		return (
 			<div className="home-page-container">
@@ -48,7 +54,7 @@ class HomePage extends Component {
 					    </div>
 					</Row>
 					<Row className="show-grid">
-						<FeedList feeds={this.state.feeds} />
+						<FeedList feeds={this.state.feeds} viewFeed={this.viewFeed.bind(this)}  />
 					</Row>
 				</Grid>
 			</div>

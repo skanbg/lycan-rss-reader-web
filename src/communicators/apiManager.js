@@ -15,6 +15,10 @@ const SUGGESTED_FEEDS = [{
 	url: 'http://rss.nytimes.com/services/xml/rss/nyt/Europe.xml',
 	title: 'NYT > Europe',
 	description: 'Europe'
+}, {
+	url: 'http://www.ft.com/rss/home/europe',
+	title: 'Europe homepage',
+	description: ''
 }];
 
 class ApiManager {

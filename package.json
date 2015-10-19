@@ -13,6 +13,7 @@
     "bootstrap": "^3.3.5",
     "bootstrap-sass": "^3.3.5",
     "flux": "^2.1.1",
+    "history": "^1.12.5",
     "jquery-browserify": "^1.8.1",
     "lodash": "^3.10.1",
     "react": "^0.14.0",

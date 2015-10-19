@@ -19,7 +19,7 @@ class Menu extends Component {
           <NavBrand className="app-name">Lycan Reader</NavBrand>
         </LinkContainer>
         <Nav right eventKey={0} className="menu-container"> {/* This is the eventKey referenced */}
-          <LinkContainer to="/home" query={{}}>
+          <LinkContainer to="/feeds" query={{}}>
             <NavItem eventKey={1}>Home</NavItem>
           </LinkContainer>
           <LinkContainer to="/add-feed" query={{}}>

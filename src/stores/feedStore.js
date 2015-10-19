@@ -28,12 +28,16 @@ var FeedStore = Object.assign({}, EventEmitter.prototype, {
 	},
 	getFeedByUrl: function(url) {
 		return _.find(_feeds, function(feed) {
-			return feed.link[0].href == url;
+			let searchedLink = feed.link[0];
+			let searchedLinkHref = searchedLink.href;
+			return (searchedLink && searchedLink == url) || (searchedLink && searchedLinkHref && searchedLinkHref == url);
 		});
 	},
 	isExisting: function(searchedFeed) {
 		return _.find(_feeds, function(feed) {
-			return feed.link[0].href == searchedFeed.link[0].href;
+			let searchedLink = feed.link[0];
+			let searchedLinkHref = searchedLink.href;
+			return (searchedLink && searchedLink == searchedFeed.link[0].href) || (searchedLink && searchedLinkHref && searchedLinkHref == searchedFeed.link[0].href);
 		});
 	}
 });
