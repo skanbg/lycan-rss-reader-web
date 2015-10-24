@@ -40,15 +40,34 @@ class AddFeedPage extends Component {
 
 	_onChange(){
 		let targetFeed = FeedStore.getFeedByUrl(this.state.feedId);
-		console.log('TAR', targetFeed);
 		this.setState({feed: targetFeed});
 	}
 
-	render() {
-		console.log('feed', this.state.feed);
+	refreshFeed(){
+		let subscriptionUrl = this.state.feedId;
+		FeedActions.refreshFeedByFeedUrl(subscriptionUrl);
+		console.log('refreshed');
+	}
 
+	removeFeed(){
+		let subscriptionUrl = this.state.feedId;
+		FeedActions.removeFeedByFeedUrl(subscriptionUrl);
+		this.props.history.pushState(null, `/`);
+	}
+
+	render() {
 		const staticTextExample = (
 		  <form className="form-horizontal">
+			<Grid fluid={true} className="pull-right">
+				<Row>
+					<Col xs={6} md={5} lg={5}>
+						<Button bsStyle="primary" onClick={this.refreshFeed.bind(this)}>Refresh feed</Button>
+					</Col>
+					<Col xs={6} md={5} lg={5}>
+						<Button bsStyle="danger" onClick={this.removeFeed.bind(this)}>Remove feed</Button>
+					</Col>
+				</Row>
+			</Grid>
 		    <FormControls.Static label="Title" labelClassName="col-xs-2" wrapperClassName="col-xs-10" value={this.state.feed.title} />
 		    <FormControls.Static label="Description" labelClassName="col-xs-2" wrapperClassName="col-xs-10" value={this.state.feed.description} />
 		  </form>

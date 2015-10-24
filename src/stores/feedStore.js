@@ -35,17 +35,37 @@ var FeedStore = Object.assign({}, EventEmitter.prototype, {
 	},
 	isExisting: function(searchedFeed) {
 		return _.find(_feeds, function(feed) {
-			let searchedLink = feed.link[0];
-			let searchedLinkHref = searchedLink.href;
-			return (searchedLink && searchedLink == searchedFeed.link[0].href) || (searchedLink && searchedLinkHref && searchedLinkHref == searchedFeed.link[0].href);
+			return FeedStore.areEqual(feed, searchedFeed);
 		});
 	}
 });
+
+FeedStore.areEqual = function(firstObj, secondObj) {
+	let searchedLink = firstObj.link[0];
+	let searchedLinkHref = searchedLink.href;
+	return (searchedLink && searchedLink == secondObj.link[0].href) || (searchedLink && searchedLinkHref && searchedLinkHref == secondObj.link[0].href);
+};
 
 Dispatcher.register(function(action) {
 	switch (action.actionType) {
 		case ActionTypes.ADD_FEED:
 			_feeds.push(action.feed);
+			FeedStore.emitChange();
+			break;
+		case ActionTypes.UPDATE_FEED:
+			_feeds = _.map(_feeds, function(currentFeed) {
+				let areEqual = FeedStore.areEqual(action.feed, currentFeed);
+				return areEqual ? action.feed : currentFeed;
+			});
+			FeedStore.emitChange();
+			break;
+		case ActionTypes.REMOVE_FEED:
+			_feeds = _.reject(_feeds, function(currentFeed) {
+				let areEqual = FeedStore.areEqual({
+					link: [action.feedUrl]
+				}, currentFeed);
+				return areEqual;
+			});
 			FeedStore.emitChange();
 			break;
 		case ActionTypes.INITIALIZE:
