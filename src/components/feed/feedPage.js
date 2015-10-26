@@ -46,7 +46,6 @@ class AddFeedPage extends Component {
 	refreshFeed(){
 		let subscriptionUrl = this.state.feedId;
 		FeedActions.refreshFeedByFeedUrl(subscriptionUrl);
-		console.log('refreshed');
 	}
 
 	removeFeed(){
@@ -65,6 +64,9 @@ class AddFeedPage extends Component {
 					</Col>
 					<Col xs={6} md={5} lg={5}>
 						<Button bsStyle="danger" onClick={this.removeFeed.bind(this)}>Remove feed</Button>
+					</Col>
+					<Col xs={6} md={5} lg={5}>
+						<a href={"https://www.facebook.com/sharer/sharer.php?u="+this.props.params.feedId} target="_blank">Share</a>
 					</Col>
 				</Row>
 			</Grid>
